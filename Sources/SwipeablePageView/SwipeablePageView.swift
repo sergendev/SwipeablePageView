@@ -7,6 +7,14 @@
 
 import SwiftUI
 
+/// An enumeration that defines the swipe direction for the page view.
+public enum SwipeDirection {
+    /// Swipe pages left or right.
+    case horizontal
+    /// Swipe pages up or down.
+    case vertical
+}
+
 /// A container view that provides a swipeable paging mechanism for its child views.
 ///
 /// `SwipeablePageView` allows you to arrange multiple child views in either a horizontal or vertical
@@ -28,15 +36,6 @@ import SwiftUI
 /// ```
 ///
 public struct SwipeablePageView<Content: View>: View {
-    // MARK: - Enumerations
-    /// An enumeration that defines the swipe direction for the page view.
-    public enum SwipeDirection {
-        /// Swipe pages left or right.
-        case horizontal
-        /// Swipe pages up or down.
-        case vertical
-    }
-    
     // MARK: - Properties
     /// A binding to the index of the currently visible page.
     @Binding var currentPage: Int
@@ -52,6 +51,18 @@ public struct SwipeablePageView<Content: View>: View {
     
     /// A computed property indicating if the view is being dragged.
     private var isDragging: Bool { dragTranslation != 0 }
+    
+    /// Creates a new swipeable page view.
+    ///
+    /// - Parameters:
+    ///   - currentPage: A binding to the index of the current page.
+    ///   - direction: The swipe direction, either horizontal or vertical.
+    ///   - content: A view builder that produces the paged child views.
+    public init(currentPage: Binding<Int>, direction: SwipeDirection, @ViewBuilder content: () -> Content) {
+        self._currentPage = currentPage
+        self.direction = direction
+        self.content = content()
+    }
     
     /// The body of the `SwipeablePageView`, laying out the pages and handling drag gestures.
     public var body: some View {
