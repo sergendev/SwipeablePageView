@@ -20,14 +20,14 @@ SwipeablePageView is a Swift package that provides a flexible, swipeable contain
 Add the package via Swift Package Manager. In Xcode:
 
 - Go to **File > Add Package Dependencies...** 
-- Copy-paste the repository URL in the search bar at the top right of the popup.
+- Copy-paste the repository URL `github.com/sergendev/SwipeablePageView` in the search bar at the top right of the popup.
 - Click **Add Package**, and `import SwipablePageView` to use the library's components in your app.
 
 Alternatively, add the following in your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/sergendev/SwipeablePageView.git", from: "1.0.0")
+    .package(url: "https://github.com/sergendev/SwipeablePageView", from: "1.0.0")
 ]
 ```
 
@@ -44,13 +44,11 @@ struct ContentView: View {
 
     var body: some View {
         SwipeablePageView(currentPage: $currentPage, direction: .horizontal) {
-            ForEach(0..<3, id: \.self) { index in
+            ForEach(0..<5, id: \.self) { index in
                 VStack {
                     Text("Section \(index + 1)")
                         .font(.largeTitle)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.white)
             }
         }
     }
@@ -71,8 +69,8 @@ struct ContentView: View {
 
 ## Future Improvements
 
-- **Backward Compatibility:** Explore options to support earlier iOS versions by providing fallback implementations.
-- **Layout Consistency:** Investigate and improve the initial sizing behavior for UIKit-adapted views to ensure consistent layouts immediately after a swipe.
+- **Backward Compatibility:** Explore options to support iOS 17 and earlier by providing fallback implementations.
+- **Layout Consistency:** Investigate and improve the initial sizing behavior for UIKit-adapted views to ensure consistent layouts immediately after swiping.
 - **Customization Options:** Add parameters for customizing animations, shadows, and gesture sensitivities.
 - **Enhanced Accessibility:** Incorporate additional accessibility features and modifiers to improve usability.
 - **Expanded Testing:** Develop a broader testing suite and documentation to cover more use cases and edge scenarios.
